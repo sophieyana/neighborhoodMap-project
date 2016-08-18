@@ -28,7 +28,7 @@ var initialLocations = [
     {title: 'Royal Academy of Arts', location: {lat:51.509643, lng:-0.139847}},
     {title: 'Sherlock Holmes Museum', location: {lat:51.523923, lng:-0.158525}},
     {title: 'Prince Charles Cinema', location: {lat:51.511668, lng:-0.130256}},
-    {title: 'Russel Square', location: {lat:51.521730, lng:-0.126115}},
+    {title: 'Russell Square', location: {lat:51.521730, lng:-0.126115}},
     {title: 'Neal\'s Yard', location: {lat:51.5143187, lng:-0.1287639}},
     {title: 'Royal Opera House', location: {lat:51.513101, lng:-0.122155}}
 ];
