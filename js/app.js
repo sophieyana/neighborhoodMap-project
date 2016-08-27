@@ -163,7 +163,7 @@ var ViewModel = function () {
 
               if (item.wikiErrorMessage=='') {
                 var content = '<h3><a href="'+ item.wikiURL +'" target="_blank">'+ item.wikiTitle + '</a></h3>' + 
-                              '<div><img src=' + item.wikiImgSrc + '></div>'+ '<div>' + item.wikiExtract + '</div>';
+                              '<div><img src=' + item.wikiImgSrc + ' alt="NO IMAGE TO DISPLAY"></div>'+ '<div>' + item.wikiExtract + '</div>';
               } else {
                  var content = '<div>'+item.wikiErrorMessage+'</div>';
               }
@@ -207,6 +207,11 @@ var ViewModel = function () {
 
     }, 3000);
           
+  }
+
+
+  self.toggleMenu=function() {
+    $(".filter-box").toggle();
   }
 
 };
@@ -254,9 +259,17 @@ console.log(wikiUrl);
 
         $.map(pages, function (page) {
              initialLocations[i].wikiTitle=page.title;
-             initialLocations[i].wikiExtract=page.extract;
+
+             if (page.extract) {
+                initialLocations[i].wikiExtract=page.extract;
+             } else {
+                initialLocations[i].wikiExtract="No snippets - cf link above";
+             }
+
              if (page.thumbnail) {
                   initialLocations[i].wikiImgSrc=page.thumbnail.source;
+             } else {
+                  initialLocations[i].wikiImgSrc="ERROR";
              }
              initialLocations[i].wikiURL="https://en.wikipedia.org/wiki/"+page.title;
 

@@ -2,22 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>London Neighborhood Map</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-	<div class="container">
-		<div class="filter-box">
-			<h1> Sophie's Locations in West London </h1>
-			<div>
-				<input id="filter" type="search" placeholder="ex: The National Gallery" data-bind="textInput: query" ></input>
-				<ul data-bind="foreach: search">
-                	<li data-bind="text: title, click: $parent.animateMarker"></li>
-            	</ul>
-			</div>
-   		</div>
-   		<div id="map"></div>
-   	</div>
+	<div class="header">
+            <a href="#" class="menu-icon-link" data-bind="click: toggleMenu">
+            	<img src = "img/menu.svg">
+            </a>
+            <h1> Sophie's Locations in West London </h1>
+    </div>
+	<div class="filter-box">
+			<input id="filter" type="search" placeholder="ex: The National Gallery" data-bind="textInput: query" ></input>
+			<ul data-bind="foreach: search">
+            	<li data-bind="text: title, click: $parent.animateMarker"></li>
+        	</ul>
+	</div>
+	<div id="map"></div>
 
 	<script src="js/lib/jquery.min.js"></script>
 	<script src="js/lib/knockout-3.2.0.js"></script>
