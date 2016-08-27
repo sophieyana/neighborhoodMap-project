@@ -6,6 +6,8 @@ var infoWindow;
 var defaultIcon;
 var highlightedIcon;
 
+
+/* source: Google Maps API -- Udacity Course -- Project */
 function makeMarkerIcon(markerColor) {
         var markerImage = new google.maps.MarkerImage(
           'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'+ markerColor +
@@ -37,7 +39,7 @@ var initialLocations = [
 
 function initMap() {
 
-
+/* source: Google Maps API -- Udacity Course -- Project */
     var styles= [
         {
             featureType:'water',
@@ -138,13 +140,6 @@ var ViewModel = function () {
   self.viewList=ko.observableArray(initialLocations);
   self.query=ko.observable('');
 
-/*
-  initialLocations.forEach(function(initialLocationsItem) {
-      self.viewList.push(new Location (initialLocationsItem) );
-  });
-
-*/
-
 
   self.viewList().forEach(function(item) {
 
@@ -199,6 +194,9 @@ var ViewModel = function () {
   })
 
 
+/* Stop the animation of the marker after 3 sec et goes back to default marker
+/* source: https://github.com/JimRhead/Udacity-Maps-Api */
+
   function stopAnimation(marker) {
 
     setTimeout(function() { 
@@ -216,20 +214,10 @@ var ViewModel = function () {
 
 };
 
-
+/* Wikipedia API */
 function loadWikiData(i) {
 
-  /*
-  var wikiUrl="https://en.wikipedia.org/w/api.php";
-    wikiUrl += '?' + $.param({
-    'action': "opensearch",
-    'search': initialLocations[i].title,
-    'format': "json",
-    'callback': 'wikiCallback'
-   });
-  */
 
-  
    var wikiUrl="https://en.wikipedia.org/w/api.php";
     wikiUrl += '?' + $.param({
     'action': "query",
@@ -269,6 +257,7 @@ console.log(wikiUrl);
              if (page.thumbnail) {
                   initialLocations[i].wikiImgSrc=page.thumbnail.source;
              } else {
+                  /* if thumbnail does not exist (no image on the Wiki Page) */
                   initialLocations[i].wikiImgSrc="ERROR";
              }
              initialLocations[i].wikiURL="https://en.wikipedia.org/wiki/"+page.title;
