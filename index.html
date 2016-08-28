@@ -9,12 +9,12 @@
 <body>
 	<div class="header">
             <a href="#" class="menu-icon-link" data-bind="click: toggleMenu">
-            	<img src = "img/menu.svg"> <!-- downloaded the image from: "https://github.com/topplethepat/NeighborhoodMap" -->
+            	<img src = "img/menu.svg" alt="MENU"> <!-- downloaded the image from: "https://github.com/topplethepat/NeighborhoodMap" -->
             </a>
             <h1> Sophie's Locations near London's West End </h1>
     </div>
 	<div class="filter-box">
-			<input id="filter" type="search" placeholder="ex: The National Gallery" data-bind="textInput: query" ></input>
+			<input id="filter" type="search" placeholder="ex: The National Gallery" data-bind="textInput: query">
 			<ul data-bind="foreach: search">
             	<li data-bind="text: title, click: $parent.animateMarker"></li>
         	</ul>
