@@ -1,99 +1,91 @@
- html,
-      body {
-        font-family: Arial, sans-serif;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
+html,body {
+    font-family: Arial,sans-serif;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
 
-      div {
-        display: block;
-      }
+div {
+    display: block;
+}
 
-      html {
-        box-sizing: border-box;
-      }
+html {
+    box-sizing: border-box;
+}
 
-      .header {
-        background: #fff;
-        position: fixed;
-        top: 0;
-        width: 100%;
-        border: 1px solid #999;
-        border-radius: 3px;
-        z-index: 3;
-        margin: 0 auto;
-      }
+.header {
+    background: #fff;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    border: 1px solid #999;
+    border-radius: 3px;
+    z-index: 3;
+    margin: 0 auto;
+}
 
+.menu-icon-link {
+    position: absolute;
+    top: 0;
+}
 
-      .menu-icon-link {
-        position: absolute;
-        top: 0;
-     }
+.menu-icon-link img {
+    width: 50px;
+    height: 50px;
+}
 
-     .menu-icon-link img {
-        width: 50px;
-        height: 50px;
-     }
+h1 {
+    font-size: 20px;
+    font-weight: 100;
+    float: left;
+    display: inline;
+    font-weight: 100;
+    padding: 0 0 0 60px;
+}
 
-     h1 {
-        font-size: 20px;
-        font-weight: 100;
-        float: left;
-        display: inline;
-        font-weight: 100;
-        padding: 0 0 0 60px;
-      }
+.filter-box {
+    position: absolute;
+    top: 3em;
+    padding: 1em;
+    background: #fff;
+    height: 100%;
+    width: 20%;
+    z-index: 2;
+    border: 1px solid #999;
+    border-radius: 3px;
+    transform: translate3d(0,0,0);
+    transition: transform .2s;
+}
 
-      .filter-box {
-        position: absolute;
-        top:3em;
-        padding: 1em;
-        background:  #fff;
-        height: 100%;
-        width: 20%;
-        z-index: 2;
-        border: 1px solid #999;
-        border-radius: 3px;
-        transform: translate3d(0, 0, 0);
-        transition: transform 0.2s;
+input {
+    font-size: 12px;
+}
 
-      }
+.filter-box li {
+    padding: .3em 0;
+}
 
-      input {
-        font-size: 12px;
-      }
+#map {
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
 
-      .filter-box li {
-        padding:0.3em 0;
-      }
+#filter {
+    width: 84%;
+}
 
+@media screen and (max-width: 736px) {
+    .filter-box {
+        visibility: hidden;
+    }
 
-      #map {
-        height:100%;
-        width:100%;
-        z-index:1;
-      }
+    h1 {
+        font-size: 15px;
+    }
 
-
-      #filter{
-        width: 84%;
-      }
-
-
-  @media screen and (max-width: 736px) {
-
-  .filter-box {
-    visibility: hidden;
-  }   
-
-  h1 {
-    font-size: 15px;
-  }
-
-  .menu-icon-link img {
+    .menu-icon-link img {
         width: 40px;
         height: 40px;
-     }
-  
+    }
 }

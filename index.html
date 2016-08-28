@@ -7,25 +7,24 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-	<div class="header">
-            <a href="#" class="menu-icon-link" data-bind="click: toggleMenu">
-            	<img src = "img/hamburger.svg" alt="MENU"> <!-- downloaded the svg image from: "https://www.iconfinder.com/icons/134216/hamburger_lines_menu_icon" -->
-            </a>
-            <h1> Sophie's Locations near London's West End </h1>
+    <div class="header">
+        <a href="#" class="menu-icon-link" data-bind="click: toggleMenu">
+            <img src = "img/hamburger.svg" alt="MENU"> <!-- downloaded the svg image from: "https://www.iconfinder.com/icons/134216/hamburger_lines_menu_icon" -->
+        </a>
+        <h1> Sophie's Locations near London's West End </h1>
     </div>
 	<div class="filter-box">
-			<input id="filter" type="search" placeholder="ex: The National Gallery" data-bind="textInput: query">
-			<ul data-bind="foreach: search">
-            	<li data-bind="text: title, click: $parent.animateMarker"></li>
-        	</ul>
+		<input id="filter" type="search" placeholder="ex: The National Gallery" data-bind="textInput: query">
+		<ul data-bind="foreach: search">
+            <li data-bind="text: title, click: $parent.animateMarker"></li>
+        </ul>
 	</div>
 	<div id="map"></div>
 
 	<script src="js/lib/jquery.min.js"></script>
 	<script src="js/lib/knockout-3.2.0.js"></script>
     <script src="js/app.js"></script>
-	<script async defer src=
-        "https://maps.googleapis.com/maps/api/js?key=AIzaSyCpgHUxvclLzOg7viR2VqkXegif8aepj3k&libraries=geometry,drawing,places&v=3&callback=initMap">
-	</script>
+	<script async defer src= "https://maps.googleapis.com/maps/api/js?key=AIzaSyCpgHUxvclLzOg7viR2VqkXegif8aepj3k&libraries=geometry,drawing,places&v=3&callback=initMap">
+    </script>
 </body>
 </html>
