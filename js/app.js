@@ -156,11 +156,13 @@ var ViewModel = function () {
 
         marker.addListener('click', function(event) {
 
-              if (item.wikiErrorMessage=='') {
-                var content = '<h3><a href="'+ item.wikiURL +'" target="_blank">'+ item.wikiTitle + '</a></h3>' + 
+              var content;
+
+              if (item.wikiErrorMessage==='') {
+                content = '<h3><a href="'+ item.wikiURL +'" target="_blank">'+ item.wikiTitle + '</a></h3>' + 
                               '<div><img src=' + item.wikiImgSrc + ' alt="NO IMAGE TO DISPLAY"></div>'+ '<div>' + item.wikiExtract + '</div>';
               } else {
-                 var content = '<div>'+item.wikiErrorMessage+'</div>';
+                content = '<div>'+item.wikiErrorMessage+'</div>';
               }
                 infoWindow.setContent(content);
                 infoWindow.open(map, this);
@@ -174,10 +176,10 @@ var ViewModel = function () {
 
         self.animateMarker=function(item) {
             google.maps.event.trigger(item.marker, 'click');
-        }
+        };
 
 
-  })
+  });
 
   map.fitBounds(bounds);
 
@@ -191,7 +193,7 @@ var ViewModel = function () {
 
       });
 
-  })
+  });
 
 
 /* Stop the animation of the marker after 3 sec et goes back to default marker
@@ -210,7 +212,7 @@ var ViewModel = function () {
 
   self.toggleMenu=function() {
     $(".filter-box").toggle();
-  }
+  };
 
 };
 
@@ -262,12 +264,12 @@ console.log(wikiUrl);
              }
              initialLocations[i].wikiURL="https://en.wikipedia.org/wiki/"+page.title;
 
-        })
+        });
 
         clearTimeout(wikiRequestTimeout);
 
         }
-        })
+        });
 
 console.log(initialLocations[i].wikiErrorMessage);
 
