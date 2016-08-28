@@ -1,6 +1,4 @@
 var map;
-var markers=[];
-var placesList=[];
 var bounds;
 var infoWindow;
 var defaultIcon;
@@ -39,7 +37,7 @@ var initialLocations = [
 
 function initMap() {
 
-/* source: Google Maps API -- Udacity Course -- Project */
+/* source for styles: Google Maps API -- Udacity Course -- Project */
     var styles= [
         {
             featureType:'water',
@@ -119,6 +117,7 @@ function initMap() {
 
     bounds= new google.maps.LatLngBounds();
 
+    /* Source: Google Maps API -- Udacity Course -- Project */
     defaultIcon = makeMarkerIcon('0091ff');
     highlightedIcon = makeMarkerIcon('FFFF24');
 
@@ -196,8 +195,8 @@ var ViewModel = function () {
   });
 
 
-/* Stop the animation of the marker after 3 sec et goes back to default marker
-/* source: https://github.com/JimRhead/Udacity-Maps-Api */
+/* Stop the animation of the marker after 3 sec et goes back to default marker (blue marker)
+/* source: from the udacity forum, https://github.com/JimRhead/Udacity-Maps-Api */
 
   function stopAnimation(marker) {
 
@@ -209,7 +208,7 @@ var ViewModel = function () {
           
   }
 
-
+/* Show/hide the slide menu */
   self.toggleMenu=function() {
     $(".filter-box").toggle();
   };
