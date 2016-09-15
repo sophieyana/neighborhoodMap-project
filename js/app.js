@@ -201,7 +201,10 @@ var ViewModel = function() {
         };
 
     });
-    map.fitBounds(bounds);
+
+    window.onresize = function() {
+        map.fitBounds(bounds); 
+    }
 
     self.search = ko.computed(function() {
         return ko.utils.arrayFilter(self.viewList(), function(
@@ -216,15 +219,42 @@ var ViewModel = function() {
     /* Stop the animation of the marker after 3 sec et goes back to default marker (blue marker)
        source: from the udacity forum, https://github.com/JimRhead/Udacity-Maps-Api */
     function stopAnimation(marker) {
-            setTimeout(function() {
-                marker.setAnimation(null);
-                marker.setIcon(defaultIcon);
-            }, 3000);
-        }
-        /* Show/hide the slide menu */
+        setTimeout(function() {
+            marker.setAnimation(null);
+            marker.setIcon(defaultIcon);
+        }, 1400);
+    }
+
+    /* Show/hide the slide menu */
+
+    /* try with click and css binding below
     self.toggleMenu = function() {
         $(".filter-box").toggle();
     };
+    */
+
+    /* other methodology: try with click and css binding  */
+
+
+    /* source: http://stackoverflow.com/questions/19291873/window-width-not-the-same-as-media-query */
+        if (window.matchMedia('(max-width: 736px)').matches) {
+            self.isActive = ko.observable(true);
+        } else {
+            self.isActive = ko.observable(false);
+        }
+
+        $(window).on('resize', function () {
+            if (window.matchMedia('(max-width: 736px)').matches) {
+                self.isActive(true)
+            } else {
+                self.isActive(false);
+            }
+        });
+
+    /* source: http://stackoverflow.com/questions/23385937/knockout-toggle-active-class-on-click */
+    self.toggleActive = function(){
+        self.isActive(!self.isActive()); 
+    }
 };
 
 /* Wikipedia API */
@@ -259,7 +289,7 @@ function loadWikiData(i) {
                         page.extract;
                 } else {
                     initialLocations[i].wikiExtract =
-                        "No snippets - cf link above";
+                        'No snippets - cf link above';
                 }
                 if (page.thumbnail) {
                     initialLocations[i].wikiImgSrc =
@@ -267,10 +297,10 @@ function loadWikiData(i) {
                 } else {
                     /* if thumbnail does not exist (no image on the Wiki Page) */
                     initialLocations[i].wikiImgSrc =
-                        "ERROR";
+                        'ERROR';
                 }
                 initialLocations[i].wikiURL =
-                    "https://en.wikipedia.org/wiki/" +
+                    'https://en.wikipedia.org/wiki/' +
                     page.title;
             });
             clearTimeout(wikiRequestTimeout);
@@ -278,4 +308,10 @@ function loadWikiData(i) {
     });
 
     console.log(initialLocations[i].wikiErrorMessage);
+}
+
+
+function googleMapsApiErrorHandler() {
+    window.alert("Google Maps API is currently not working -- Try again later!");
+    console.log("Google Maps API is currently not working -- Try again later!");
 }

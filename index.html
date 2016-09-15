@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>London Neighborhood Map</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="header">
-        <a href="#" class="menu-icon-link" data-bind="click: toggleMenu">
-            <img src = "img/hamburger.svg" alt="MENU"> <!-- downloaded the svg image from: "https://www.iconfinder.com/icons/134216/hamburger_lines_menu_icon" -->
-        </a>
-        <h1> Sophie's Locations near London's West End </h1>
+        <div id="hamburger">
+            <a href="#" class="menu-icon-link" data-bind="click: toggleActive">
+                <img src = "img/hamburger.svg" alt="MENU"> <!-- downloaded the svg image from: "https://www.iconfinder.com/icons/134216/hamburger_lines_menu_icon" -->
+            </a>
+        </div>
+        <div id="title">
+            <h1> Sophie's Locations near London's West End </h1>
+        </div>
     </div>
-	<div class="filter-box">
+	<div class="filter-box" data-bind="css: {'activeStyle': isActive}">
 		<input id="filter" type="search" placeholder="ex: The National Gallery" data-bind="textInput: query">
 		<ul data-bind="foreach: search">
             <li data-bind="text: title, click: $parent.animateMarker"></li>
@@ -24,7 +28,7 @@
 	<script src="js/lib/jquery.min.js"></script>
 	<script src="js/lib/knockout-3.2.0.js"></script>
     <script src="js/app.js"></script>
-	<script async defer src= "https://maps.googleapis.com/maps/api/js?key=AIzaSyCpgHUxvclLzOg7viR2VqkXegif8aepj3k&libraries=geometry,drawing,places&v=3&callback=initMap">
+	<script async defer src= "https://maps.googleapis.com/maps/api/js?key=AIzaSyCpgHUxvclLzOg7viR2VqkXegif8aepj3k&libraries=geometry,drawing,places&v=3&callback=initMap" onerror="googleMapsApiErrorHandler()">
     </script>
 </body>
 </html>
