@@ -204,7 +204,7 @@ var ViewModel = function() {
 
     window.onresize = function() {
         map.fitBounds(bounds); 
-    }
+    };
 
     self.search = ko.computed(function() {
         return ko.utils.arrayFilter(self.viewList(), function(
@@ -245,7 +245,7 @@ var ViewModel = function() {
 
         $(window).on('resize', function () {
             if (window.matchMedia('(max-width: 736px)').matches) {
-                self.isActive(true)
+                self.isActive(true);
             } else {
                 self.isActive(false);
             }
@@ -254,7 +254,7 @@ var ViewModel = function() {
     /* source: http://stackoverflow.com/questions/23385937/knockout-toggle-active-class-on-click */
     self.toggleActive = function(){
         self.isActive(!self.isActive()); 
-    }
+    };
 };
 
 /* Wikipedia API */
