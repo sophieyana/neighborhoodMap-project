@@ -156,9 +156,9 @@ function initMap() {
     /* Source: Google Maps API -- Udacity Course -- Project */
     defaultIcon = makeMarkerIcon('0091ff');
     highlightedIcon = makeMarkerIcon('FFFF24');
-    for (var i = 0; i < initialLocations.length; i++) {
-        loadWikiData(i);
-    }
+    //for (var i = 0; i < initialLocations.length; i++) {
+    //    loadWikiData(i);
+    //}
     ko.applyBindings(new ViewModel());
 }
 
@@ -178,22 +178,13 @@ var ViewModel = function() {
         item.marker = marker;
         bounds.extend(marker.position);
         marker.addListener('click', function(event) {
+            var marker=this;
             var content;
-            if (item.wikiErrorMessage === '') {
-                content = '<h3><a href="' + item.wikiURL +
-                    '" target="_blank">' + item.wikiTitle +
-                    '</a></h3>' + '<div><img src=' + item.wikiImgSrc +
-                    ' alt="NO IMAGE TO DISPLAY"></div>' +
-                    '<div>' + item.wikiExtract + '</div>';
-            } else {
-                content = '<div>' + item.wikiErrorMessage +
-                    '</div>';
-            }
-            infoWindow.setContent(content);
-            infoWindow.open(map, this);
+            loadWikiData(marker);
+           
             marker.setAnimation(google.maps.Animation.BOUNCE);
             marker.setIcon(highlightedIcon);
-            stopAnimation(this);
+            stopAnimation(marker);
         });
 
         self.animateMarker = function(item) {
@@ -258,58 +249,73 @@ var ViewModel = function() {
 };
 
 /* Wikipedia API */
-function loadWikiData(i) {
+function loadWikiData(marker) {
 
-    var wikiUrl = "https://en.wikipedia.org/w/api.php";
-    wikiUrl += '?' + $.param({
-        'action': "query",
-        'titles': initialLocations[i].title,
-        'format': "json",
-        'prop': "extracts|pageimages",
-        'exsentences': 1,
-        'callback': 'wikiCallback'
-    });
+var wikiUrl = "https://en.wikipedia.org/w/api.php";
+wikiUrl += '?' + $.param({
+    'action': "query",
+    'titles': marker.title,
+    'format': "json",
+    'prop': "extracts|pageimages",
+    'exsentences': 1,
+    'callback': 'wikiCallback'
+});
 
-    initialLocations[i].wikiErrorMessage = '';
-    var wikiRequestTimeout = setTimeout(function() {
-        initialLocations[i].wikiErrorMessage = 'Error';
-    }, 8000);
+var wikiErrorMessage = '';
+var wikiRequestTimeout = setTimeout(function() {
+    wikiErrorMessage = 'Error';
+}, 8000);
 
-    console.log(initialLocations[i].title);
-    console.log(wikiUrl);
+console.log(marker.title);
+console.log(wikiUrl);
 
-    $.ajax(wikiUrl, {
-        dataType: 'jsonp',
-        success: function(data) {
-            var pages = data.query.pages;
-            $.map(pages, function(page) {
-                initialLocations[i].wikiTitle = page.title;
-                if (page.extract) {
-                    initialLocations[i].wikiExtract =
-                        page.extract;
-                } else {
-                    initialLocations[i].wikiExtract =
-                        'No snippets - cf link above';
-                }
-                if (page.thumbnail) {
-                    initialLocations[i].wikiImgSrc =
-                        page.thumbnail.source;
-                } else {
-                    /* if thumbnail does not exist (no image on the Wiki Page) */
-                    initialLocations[i].wikiImgSrc =
-                        'ERROR';
-                }
-                initialLocations[i].wikiURL =
-                    'https://en.wikipedia.org/wiki/' +
-                    page.title;
-            });
-            clearTimeout(wikiRequestTimeout);
+$.ajax(wikiUrl, {
+    dataType: 'jsonp',
+    success: function(data) {
+        var pages = data.query.pages,
+            wikiTitle,
+            wikiExtract,
+            wikiImgSrc,
+            wikiUrl;
+
+
+        $.map(pages, function(page) {
+            wikiTitle = page.title;
+            if (page.extract) {
+                wikiExtract = page.extract;
+            } else {
+                wikiExtract = 'No snippets - cf link above';
+            }
+            if (page.thumbnail) {
+                wikiImgSrc = page.thumbnail.source;
+            } else {
+                /* if thumbnail does not exist (no image on the Wiki Page) */
+                wikiImgSrc ='ERROR';
+            }
+                wikiURL = 'https://en.wikipedia.org/wiki/' + page.title;
+        });
+        clearTimeout(wikiRequestTimeout);
+
+
+        if (wikiErrorMessage === '') {
+            content = '<h3><a href="' + wikiURL +
+                '" target="_blank">' + wikiTitle +
+                '</a></h3>' + '<div><img src=' + wikiImgSrc +
+                ' alt="NO IMAGE TO DISPLAY"></div>' +
+                '<div>' + wikiExtract + '</div>';
+        } else {
+            content = '<div>' + wikiErrorMessage +
+                '</div>';
         }
-    });
 
-    console.log(initialLocations[i].wikiErrorMessage);
+
+        infoWindow.setContent(content);
+        infoWindow.open(map, marker);
+    }
+});
+
+console.log(marker.wikiErrorMessage);
 }
-
 
 function googleMapsApiErrorHandler() {
     window.alert("Google Maps API is currently not working -- Try again later!");
