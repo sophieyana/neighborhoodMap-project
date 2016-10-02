@@ -156,9 +156,6 @@ function initMap() {
     /* Source: Google Maps API -- Udacity Course -- Project */
     defaultIcon = makeMarkerIcon('0091ff');
     highlightedIcon = makeMarkerIcon('FFFF24');
-    //for (var i = 0; i < initialLocations.length; i++) {
-    //    loadWikiData(i);
-    //}
     ko.applyBindings(new ViewModel());
 }
 
@@ -180,7 +177,7 @@ var ViewModel = function() {
         marker.addListener('click', function(event) {
             var marker=this;
             var content;
-            loadWikiData(marker);
+            loadWikiData(marker); // call is executed inside marker's click event
            
             marker.setAnimation(google.maps.Animation.BOUNCE);
             marker.setIcon(highlightedIcon);
@@ -226,7 +223,6 @@ var ViewModel = function() {
 
     /* other methodology: try with click and css binding  */
 
-
     /* source: http://stackoverflow.com/questions/19291873/window-width-not-the-same-as-media-query */
         if (window.matchMedia('(max-width: 736px)').matches) {
             self.isActive = ko.observable(true);
@@ -261,22 +257,23 @@ wikiUrl += '?' + $.param({
     'callback': 'wikiCallback'
 });
 
+var wikiTitle, wikiExtract, wikiImgSrc, wikiURL,content;
+
+
+// Error handling when Wiki API fails
 var wikiErrorMessage = '';
 var wikiRequestTimeout = setTimeout(function() {
-    wikiErrorMessage = 'Error';
-}, 8000);
-
-console.log(marker.title);
-console.log(wikiUrl);
+    wikiErrorMessage = 'Error. Wiki API cannot be reached and information cannot be displayed';
+    console.log(wikiErrorMessage);
+    content = '<div>' + wikiErrorMessage +'</div>';
+    infoWindow.setContent(content);
+    infoWindow.open(map, marker);
+}, 2000);
 
 $.ajax(wikiUrl, {
     dataType: 'jsonp',
     success: function(data) {
-        var pages = data.query.pages,
-            wikiTitle,
-            wikiExtract,
-            wikiImgSrc,
-            wikiUrl;
+        var pages = data.query.pages;
 
 
         $.map(pages, function(page) {
@@ -296,25 +293,19 @@ $.ajax(wikiUrl, {
         });
         clearTimeout(wikiRequestTimeout);
 
-
-        if (wikiErrorMessage === '') {
-            content = '<h3><a href="' + wikiURL +
+        content = '<h3><a href="' + wikiURL +
                 '" target="_blank">' + wikiTitle +
                 '</a></h3>' + '<div><img src=' + wikiImgSrc +
                 ' alt="NO IMAGE TO DISPLAY"></div>' +
                 '<div>' + wikiExtract + '</div>';
-        } else {
-            content = '<div>' + wikiErrorMessage +
-                '</div>';
-        }
-
 
         infoWindow.setContent(content);
         infoWindow.open(map, marker);
     }
 });
 
-console.log(marker.wikiErrorMessage);
+
+
 }
 
 function googleMapsApiErrorHandler() {
